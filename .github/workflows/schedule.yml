@@ -34,7 +34,7 @@ jobs:
           file scrape-headlines.py
 
       - name: Run Scraper
-        run: python3 scrape-headlines.py
+        run: python scrape-headlines.py
       - name: Verify Installed Packages
         run: |
           pip list
