@@ -23,8 +23,6 @@ SENDER_EMAIL = os.getenv('SENDER_EMAIL')
 SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 
-print(f"Sending email from {email_user}...")
-
 
 def get_headlines():
     headers = {'User-Agent': 'Mozilla/5.0'}
