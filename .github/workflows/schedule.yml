@@ -24,12 +24,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then 
-            pip install -r requirements.txt
-          else 
-            pip install requests beautifulsoup4 pandas
-          fi
-
+          python -m pip install requests beautifulsoup4 bs4 pandas
 
       - name: Verify Script Exists (Optional Debug Step)
         run: |
@@ -38,3 +33,6 @@ jobs:
 
       - name: Run Scraper
         run: python3 scrape-headlines.py
+      - name: Verify Installed Packages
+        run: |
+          pip list
