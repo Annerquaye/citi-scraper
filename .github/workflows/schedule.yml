@@ -2,7 +2,7 @@ name: Scheduled Python Script
 
 on:
   schedule:
-  - cron: '0 12 * * *'  # Runs at 12:00 PM UTC every day
+  - cron: '* * * * *'  # Runs at 12:00 PM UTC every day
 
 jobs:
   run-script:
