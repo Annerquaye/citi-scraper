@@ -23,8 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install requests beautifulsoup4 pandas
+          pip install requests beautifulsoup4 pandas
 
       - name: Verify Script Exists (Optional Debug Step)
         run: |
