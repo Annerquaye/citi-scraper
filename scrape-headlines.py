@@ -19,7 +19,7 @@ import os
 # Load configuration
 import os
 
-#URL = 'https://www.citinewsroom.com'
+URL = 'https://www.citinewsroom.com'
 email_user = os.getenv('SENDER_EMAIL')
 email_password = os.getenv('SENDER_PASSWORD')
 email_recipient = os.getenv('RECIPIENT_EMAIL')
