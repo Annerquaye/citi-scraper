@@ -23,7 +23,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          python3 -m pip install bs4
           pip install requests BeautifulSoup pandas
+          
 
       - name: Verify Script Exists (Optional Debug Step)
         run: |
