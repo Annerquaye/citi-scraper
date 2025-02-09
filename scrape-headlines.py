@@ -19,9 +19,9 @@ from datetime import date
 import os
 URL = 'https://citinewsroom.com'
 my_secret_key = os.getenv('SOME_SECRET')
-email_user = os.getenv('SENDER_EMAIL')
-email_password = os.getenv('SENDER_PASSWORD')
-email_recipient = os.getenv('RECIPIENT_EMAIL')
+SENDER_EMAIL = os.getenv('SENDER_EMAIL')
+SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
+RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 
 print(f"Sending email from {email_user}...")
 
