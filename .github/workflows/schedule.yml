@@ -21,12 +21,8 @@ jobs:
         with:
           python-version: '3.10'  # Specify the Python version you need
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install -r requirements.txt
-          pip install beautifulsoup4
-          pip install requests BeautifulSoup pandas
-          
+      - name: Install all necessary packages
+        run: pip install requests beautifulsoup4 pandas tqdm urllib3
 
       - name: Verify Script Exists (Optional Debug Step)
         run: |
