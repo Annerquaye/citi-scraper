@@ -32,6 +32,9 @@ jobs:
 
       - name: Run Scraper
         run: python scrape-headlines.py
+      - name: Print the URL being used
+        run: |
+           echo "Using URL: $URL"
       - name: Verify Installed Packages
         run: |
           pip list
