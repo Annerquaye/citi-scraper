@@ -2,11 +2,14 @@ name: Scheduled Python Script
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # Runs at 12:00 PM UTC every day
+  - cron: '0 12 * * *'  # Runs at 12:00 PM UTC every day
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
+    env:
+      EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
 
     steps:
       - name: Checkout Repository
@@ -22,5 +25,5 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run Python Script
+      - name: Run
         run: scrape-headlines.py
