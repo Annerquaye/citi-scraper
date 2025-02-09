@@ -17,8 +17,8 @@ from datetime import date
 
 # Load configuration
 import os
-my_secret_key = os.getenv('SOME_SECRET')
 URL = 'https://citinewsroom.com'
+my_secret_key = os.getenv('SOME_SECRET')
 email_user = os.getenv('SENDER_EMAIL')
 email_password = os.getenv('SENDER_PASSWORD')
 email_recipient = os.getenv('RECIPIENT_EMAIL')
