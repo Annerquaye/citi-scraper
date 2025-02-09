@@ -14,15 +14,18 @@ from email.mime.base import MIMEBase
 from email import encoders
 import pandas as pd
 from datetime import date
+import os
 
-# Load configuration from JSON file
-with open('config.json', 'r') as config_file:
-    config = json.load(config_file)
+# Load configuration
+import os
 
-URL = config['URL']
-SENDER_EMAIL = config['SENDER_EMAIL']
-SENDER_PASSWORD = config['SENDER_PASSWORD']
-RECIPIENT_EMAIL = config['RECIPIENT_EMAIL']
+URL = 'https:www.citinewsroom.com'
+email_user = os.getenv('SENDER_EMAIL')
+email_password = os.getenv('SENDER_PASSWORD')
+email_recipient = os.getenv('RECIPIENT_EMAIL')
+
+print(f"Sending email from {email_user}...")
+
 
 def get_headlines():
     headers = {'User-Agent': 'Mozilla/5.0'}
