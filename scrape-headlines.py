@@ -14,11 +14,10 @@ from email.mime.base import MIMEBase
 from email import encoders
 import pandas as pd
 from datetime import date
-import os
 
 # Load configuration
 import os
-
+my_secret_key = os.getenv('SOME_SECRET')
 URL = 'https://citinewsroom.com'
 email_user = os.getenv('SENDER_EMAIL')
 email_password = os.getenv('SENDER_PASSWORD')
