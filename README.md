@@ -1,6 +1,6 @@
 # Citi Newsroom Scraper
 
-##Files
+## Files
 
 * scrape-headlines.py
 
