@@ -2,7 +2,7 @@ name: Scheduled Python Script
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # Runs at 12:00 PM UTC daily
+    - cron: '0 12 * * *'  # Runs at 12:00 PM UTC daily (7 AM ET)
   workflow_dispatch:       # Allows manual trigger
 
 jobs:
@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       URL: 'https://www.citinewsroom.com'
-      SENDER_EMAIL: ${{ secrets.SENDER_EMAIL}}
-      SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD}}
-      RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL}}
+      SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+      SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+      RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
 
     steps:
       - name: Checkout Repository
@@ -23,18 +23,33 @@ jobs:
         with:
           python-version: '3.10'  # Specify the Python version you need
 
-      - name: Install all necessary packages
-        run: pip install requests beautifulsoup4 pandas tqdm urllib3 openpyxl
+      - name: Install Required Packages
+        run: |
+          pip install requests beautifulsoup4 pandas tqdm urllib3 openpyxl
+
       - name: Verify Script Exists (Optional Debug Step)
         run: |
           ls -l scrape-headlines.py
           file scrape-headlines.py
 
-      - name: Run Scraper
-        run: python scrape-headlines.py
-      - name: Print the URL being used
+      - name: Run Scraping Script
         run: |
-           echo "Using URL: $URL"
+          mkdir -p data  # Create 'data' folder if it doesn't exist
+          python scrape_and_export.py  # Make sure this script saves CSV in 'data' folder
+
+      - name: Print the URL Being Used
+        run: |
+          echo "Using URL: $URL"
+
       - name: Verify Installed Packages
         run: |
           pip list
+
+      - name: Commit and Push If Content Changed
+        run: |
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/*.csv
+          timestamp=$(date -u)
+          git commit -m "Latest data: ${timestamp}" || exit 0
+          git push
