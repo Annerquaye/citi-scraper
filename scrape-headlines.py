@@ -47,6 +47,8 @@ def get_headlines():
         print("Debug info:", type(headlines), headlines)
 
     return headlines
+df = pd.DataFrame(headlines)
+df.to_csv('data/headlines.csv', index=False)
 
 def save_to_excel(headlines):
     df = pd.DataFrame(headlines)
