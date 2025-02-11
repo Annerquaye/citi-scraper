@@ -35,7 +35,7 @@ jobs:
       - name: Run Scraping Script
         run: |
           mkdir -p data  # Create 'data' folder if it doesn't exist
-          python scrape_and_export.py  # Make sure this script saves CSV in 'data' folder
+          scrape-headlines.py  # Make sure this script saves CSV in 'data' folder
 
       - name: Print the URL Being Used
         run: |
