@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[56]:
-
-
-import json
 import requests
 from bs4 import BeautifulSoup
 import smtplib
@@ -14,11 +10,10 @@ from email.mime.base import MIMEBase
 from email import encoders
 import pandas as pd
 from datetime import date
-
-# Load configuration
 import os
+
+# Load environment variables
 URL = 'https://citinewsroom.com'
-SOME_SECRET = os.getenv('SOME_SECRET')
 SENDER_EMAIL = os.getenv('SENDER_EMAIL')
 SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
@@ -48,13 +43,23 @@ def get_headlines():
 
     return headlines
 
+
+def save_to_csv(headlines):
+    df = pd.DataFrame(headlines)
+    csv_path = 'data/headlines.csv'
+    df.to_csv(csv_path, index=False)
+    print(f"Headlines saved to {csv_path}")
+    return csv_path
+
+
 def save_to_excel(headlines):
     df = pd.DataFrame(headlines)
     today = date.today().isoformat()
-    file_path = f'citinews_headlines_{today}.xlsx'
+    file_path = f'data/citinews_headlines_{today}.xlsx'
     df.to_excel(file_path, index=False)
     print(f"Headlines saved to {file_path}")
     return file_path
+
 
 def send_email(subject, body, attachment_path=None):
     msg = MIMEMultipart()
@@ -69,7 +74,7 @@ def send_email(subject, body, attachment_path=None):
             part = MIMEBase('application', 'octet-stream')
             part.set_payload(attachment.read())
         encoders.encode_base64(part)
-        part.add_header('Content-Disposition', f'attachment; filename={attachment_path}')
+        part.add_header('Content-Disposition', f'attachment; filename={os.path.basename(attachment_path)}')
         msg.attach(part)
 
     try:
@@ -80,13 +85,15 @@ def send_email(subject, body, attachment_path=None):
     except Exception as e:
         print(f"Failed to send email: {e}")
 
+
 if __name__ == '__main__':
     headlines = get_headlines()
     today = date.today().isoformat()
+
     if headlines:
+        csv_file = save_to_csv(headlines)
         excel_file = save_to_excel(headlines)
         body = f'Find attached the news referring to {today}.'
         send_email(f'Daily Headlines from Citi Newsroom - {today}', body, attachment_path=excel_file)
     else:
         send_email(f'Citi Newsroom Scraper - {today}', f'No headlines found on {today}.')
-
